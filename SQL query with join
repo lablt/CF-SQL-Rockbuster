@@ -1,0 +1,12 @@
+A SQL query with join to find the top revenue generating movies genres 
+
+SELECT a.category_id, a.name,
+  SUM(amount) as amount_earned
+FROM category A
+JOIN film_category B ON A.category_id = B.category_id
+JOIN film C on B.film_id = C.film_id
+JOIN inventory D on C.film_id = D.film_id
+JOIN rental E ON D.inventory_id = E.inventory_id
+JOIN payment F on E.rental_id  = F.rental_id
+GROUP BY a.category_id, a.name
+ORDER BY amount_earned DESC
